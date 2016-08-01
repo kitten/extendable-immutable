@@ -67,4 +67,12 @@ describe('Map', () => {
     expect(obj.size).toBe(1)
     expect(obj.get('a')).toBe('a')
   })
+
+  it('allows the use of custom, extended methods', () => {
+    const obj = new Item().test()
+
+    expect(Map.isMap(obj)).toBeTruthy()
+    expect(obj.size).toBe(1)
+    expect(obj.get('test')).toBe('test')
+  })
 })

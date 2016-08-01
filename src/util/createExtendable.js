@@ -24,10 +24,6 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
       return constructor[emptySymbol]
     }
 
-    if (val.__ownerID) {
-      return copy(this, val)
-    }
-
     return copy(Object.create(prototype), val)
   }
 
@@ -47,6 +43,20 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
         }
       }
     }
+  }
+
+  proto.__ensureOwner = function __ensureOwner(ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this
+    } else if (!ownerID) {
+      this.__ownerID = undefined
+      this.__altered = false
+      return this
+    }
+
+    const res = copy(Object.create(proto), this)
+    res.__ownerID = ownerID
+    return res
   }
 
   return proto
