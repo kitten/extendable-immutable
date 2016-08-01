@@ -44,7 +44,7 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
     .forEach(key => {
       const _originalMethod = proto[key]
 
-      proto[key] = function(...args) {
+      proto[key] = function wrappedMethod(...args) {
         return this.__wrapImmutable(_originalMethod.apply(this, args))
       }
     })

@@ -8,8 +8,8 @@ import {
   OrderedMap as ImmutableOrderedMap
 } from 'immutable'
 
-const EMPTY_LIST = new List()
-const EMPTY_MAP = new Map()
+const EMPTY_LIST = new ImmutableList()
+const EMPTY_MAP = new ImmutableMap()
 
 // Copy all attributes from an Immutable.List to an Extendable.List
 function copy(val, immutable) {

@@ -25,7 +25,7 @@ function empty(val) {
   val.size = 0
   val._origin = 0
   val._capacity = 0
-  val._level = shift
+  val._level = SHIFT
   val._root = undefined
   val._tail = undefined
   val.__ownerid = undefined
