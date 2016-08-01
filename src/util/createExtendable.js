@@ -12,11 +12,11 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
   const proto = Object.create(base.prototype)
 
   // A method for wrapping an immutable object, with reference equality for empty objects
-  proto.__wrapImmutable = function __wrapImmutable(val) {
+  proto.__wrapImmutable = function __wrapImmutable(val, forceCreation = false) {
     const { constructor } = this
     const { prototype } = constructor
 
-    if (!val.size && !val.__ownerID) {
+    if (!forceCreation && !val.size && !val.__ownerID) {
       if (!constructor[emptySymbol]) {
         constructor[emptySymbol] = empty(Object.create(prototype))
       }
@@ -54,7 +54,7 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
       return this
     }
 
-    const res = copy(Object.create(proto), this)
+    const res = this.__wrapImmutable(this, true)
     res.__ownerID = ownerID
     return res
   }
