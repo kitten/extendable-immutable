@@ -39,15 +39,22 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
   }
 
   // Methods which will yield a Map and have to be wrapped before returning a result
-  wrappedMethods
-    .concat(additionalWrapped)
-    .forEach(key => {
-      const _originalMethod = proto[key]
+  for (const key in base.prototype) {
+    if (base.prototype.hasOwnProperty(key)) {
+      const _originalMethod = base.prototype[key]
 
-      proto[key] = function wrappedMethod(...args) {
-        return this.__wrapImmutable(_originalMethod.apply(this, args))
+      if (typeof _originalMethod === 'function') {
+        proto[key] = function wrappedMethod(...args) {
+          const res = _originalMethod.apply(this, args)
+          if (res instanceof base) {
+            return this.__wrapImmutable(res)
+          }
+
+          return res
+        }
       }
-    })
+    }
+  }
 
   return proto
 }

@@ -1,6 +1,5 @@
 import invariant from 'invariant'
 import createExtendable from './util/createExtendable'
-import { wrappedMethods } from './constants/Set'
 
 import {
   Set as ImmutableSet,
@@ -39,7 +38,7 @@ Set.isSet = function isSet(obj) {
 }
 
 // Inherit methods from Immutable.OrderedMap
-Set.prototype = createExtendable(ImmutableSet, copy, empty, wrappedMethods)
+Set.prototype = createExtendable(ImmutableSet, copy, empty)
 Set.prototype.constructor = Set
 
 Set.prototype.toString = function toString() {

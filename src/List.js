@@ -1,6 +1,5 @@
 import invariant from 'invariant'
 import createExtendable from './util/createExtendable'
-import { wrappedMethods } from './constants/List'
 import { List as ImmutableList } from 'immutable'
 
 // NOTE: Copied constant from TrieUtils
@@ -48,7 +47,7 @@ List.isList = function isList(obj) {
 }
 
 // Inherit methods from Immutable.List
-List.prototype = createExtendable(ImmutableList, copy, empty, wrappedMethods)
+List.prototype = createExtendable(ImmutableList, copy, empty)
 List.prototype.constructor = List
 
 List.prototype.toString = function toString() {

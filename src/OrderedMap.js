@@ -1,6 +1,5 @@
 import invariant from 'invariant'
 import createExtendable from './util/createExtendable'
-import { wrappedMethods } from './constants/List'
 
 import {
   List as ImmutableList,
@@ -45,7 +44,7 @@ OrderedMap.isOrderedMap = function isOrderedMap(obj) {
 }
 
 // Inherit methods from Immutable.OrderedMap
-OrderedMap.prototype = createExtendable(ImmutableOrderedMap, copy, empty, wrappedMethods)
+OrderedMap.prototype = createExtendable(ImmutableOrderedMap, copy, empty)
 OrderedMap.prototype.constructor = OrderedMap
 
 OrderedMap.prototype.toString = function toString() {
