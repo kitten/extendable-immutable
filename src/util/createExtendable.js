@@ -29,7 +29,11 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
 
   // Methods which will yield a Map and have to be wrapped before returning a result
   for (const key in base.prototype) {
-    if (!key.startsWith('__') && base.prototype.hasOwnProperty(key)) {
+    if (
+      !key.startsWith('__') &&
+      key !== `to${name}` &&
+      base.prototype.hasOwnProperty(key)
+    ) {
       const _originalMethod = base.prototype[key]
 
       if (typeof _originalMethod === 'function') {
