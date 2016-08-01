@@ -49,4 +49,22 @@ describe('Map', () => {
 
     expect(obj.toString()).toBe('Extendable.Map { "a": "a" }')
   })
+
+  it('allows the use of intermittent mutable operations', () => {
+    let obj = new Item().asMutable()
+
+    expect(Map.isMap(obj)).toBeTruthy()
+    expect(obj.size).toBe(0)
+
+    obj.set('a', 'a')
+
+    expect(Map.isMap(obj)).toBeTruthy()
+    expect(obj.size).toBe(1)
+
+    obj = obj.asImmutable()
+
+    expect(Map.isMap(obj)).toBeTruthy()
+    expect(obj.size).toBe(1)
+    expect(obj.get('a')).toBe('a')
+  })
 })

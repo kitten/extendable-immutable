@@ -12,7 +12,7 @@ const EMPTY_MAP = new ImmutableMap()
 function copy(val, immutable) {
   val.size = immutable.size
   val._map = immutable._map
-  val.__ownerId = immutable.__ownerId
+  val.__ownerID = immutable.__ownerID
 
   return val
 }
@@ -20,7 +20,7 @@ function copy(val, immutable) {
 function empty(val) {
   val.size = 0
   val._map = EMPTY_MAP
-  val.__ownerid = undefined
+  val.__ownerID = undefined
 
   return val
 }

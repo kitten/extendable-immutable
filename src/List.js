@@ -13,7 +13,7 @@ function copy(val, immutable) {
   val._level = immutable._level
   val._root = immutable._root
   val._tail = immutable._tail
-  val.__ownerId = immutable.__ownerId
+  val.__ownerID = immutable.__ownerID
   val.__hash = immutable.__hash
   val.__altered = immutable.__altered
 
@@ -27,7 +27,7 @@ function empty(val) {
   val._level = SHIFT
   val._root = undefined
   val._tail = undefined
-  val.__ownerid = undefined
+  val.__ownerID = undefined
   val.__hash = undefined
   val.__altered = false
 
