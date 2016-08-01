@@ -1,0 +1,11 @@
+{
+  "extends": "excellence",
+  "plugins": [
+    "mocha"
+  ],
+  "rules": {
+    "semi": [ 2, "never" ],
+    "no-console": 0,
+    "no-use-before-define": 0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "presets": [
+    "babel-preset-philpl"
+  ],
+  "ignore": [
+    "/node_modules/"
+  ],
+  "plugins": [
+    "transform-runtime"
+  ],
+  env: {
+    commonjs: {
+      plugins: [
+        "transform-es2015-modules-commonjs"
+      ]
+    }
+  }
+}

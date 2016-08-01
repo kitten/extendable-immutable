@@ -1,0 +1,40 @@
+// NOTE: It doesn't seem like we need to disable anything right now
+export const disabledMethods = []
+
+export const wrappedMethods = [
+  'set',
+  'delete',
+  'clear',
+  'update',
+  'merge',
+  'mergeWith',
+  'mergeDeep',
+  'mergeDeepWith',
+  'setIn',
+  'deleteIn',
+  'updateIn',
+  'mergeIn',
+  'mergeDeepIn',
+  'slice',
+  'rest',
+  'butLast',
+  'skip',
+  'skipLast',
+  'skipWhile',
+  'skipUntil',
+  'take',
+  'takeLast',
+  'takeWhile',
+  'takeUntil',
+  'map',
+  'filter',
+  'filterNot',
+  'reverse',
+  'sort',
+  'sortBy',
+  'concat',
+  'mapKeys',
+  'mapEntries',
+  'withMutations'
+]
+
