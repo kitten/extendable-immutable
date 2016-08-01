@@ -3,13 +3,13 @@ import createExtendable from './util/createExtendable'
 import { wrappedMethods } from './constants/Set'
 
 import {
-  Set as ImmutableSet
+  Set as ImmutableSet,
   Map as ImmutableMap
 } from 'immutable'
 
 const EMPTY_MAP = new ImmutableMap()
 
-// copy all attributes from an immutable.list to an extendable.list
+// Copy all attributes from an Immutable.List to an Extendable.List
 function copy(val, immutable) {
   val.size = immutable.size
   val._map = immutable._map
@@ -38,7 +38,7 @@ Set.isSet = function isSet(obj) {
   return obj && obj instanceof Set
 }
 
-// Inherit methods from Immutable.List
+// Inherit methods from Immutable.OrderedMap
 Set.prototype = createExtendable(ImmutableSet, copy, empty, wrappedMethods)
 Set.prototype.constructor = Set
 
