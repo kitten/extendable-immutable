@@ -50,6 +50,10 @@ class Collection extends OrderedMap {
 import { OrderedMap } from 'extendable-immutable'
 
 class Collection extends OrderedMap {
+  static isCollection(val) {
+    return val && val instanceof Collection;
+  }
+
   doMagic() {
     return this.map(x => x.set("magic", true));
   }
