@@ -1,9 +1,35 @@
 import invariant from 'invariant'
 import { disabledMethods, wrappedMethods } from '../constants/Methods'
 
-export default function createExtendable(base, additionalWrapped = []) {
+const emptySymbol = Symbol('empty')
+
+export default function createExtendable(base, copy, empty, additionalWrapped = []) {
+  invariant(typeof copy === 'function',
+    `${name}: \`copy\` is expected to be a function.`)
+  invariant(typeof empty === 'function',
+    `${name}: \`empty\` is expected to be a function.`)
+
   const name = base.prototype.constructor.name
   const proto = Object.create(base.prototype)
+
+  // A method for wrapping an immutable object, with reference equality for empty objects
+  proto.__wrapImmutable = function __wrapImmutable(val) {
+    const { constructor, prototype } = this
+
+    if (!val.size && !val.__ownerId) {
+      if (!constructor[emptySymbol]) {
+        constructor[emptySymbol] = empty(Object.create(prototype))
+      }
+
+      return constructor[emptySymbol]
+    }
+
+    if (val.__ownerId) {
+      return copy(this, val)
+    }
+
+    return copy(Object.create(prototype), val)
+  }
 
   // Methods which will throw, because they're not supported in extendable types
   for (const key of disabledMethods) {
@@ -17,16 +43,9 @@ export default function createExtendable(base, additionalWrapped = []) {
     .concat(additionalWrapped)
     .forEach(key => {
       const _originalMethod = proto[key]
+
       proto[key] = function(...args) {
-        const { fromImmutable, fromMutable } = this.constructor
-
-        invariant(typeof fromImmutable === 'function',
-          `${name}: \`fromImmutable\` is expected to be a static method on the constructor.`)
-        invariant(typeof fromMutable === 'function',
-          `${name}: \`fromImmutable\` is expected to be a static method on the constructor.`)
-
-        const res = _originalMethod.apply(this, args)
-        return this.__ownerId ? fromMutable(this, res) : fromImmutable(res)
+        return this.__wrapImmutable(_originalMethod.apply(this, args))
       }
     })
 
