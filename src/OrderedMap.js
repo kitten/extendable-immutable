@@ -32,11 +32,7 @@ function empty(val) {
 }
 
 function OrderedMap(val) {
-  if (!this) {
-    return new OrderedMap(val)
-  }
-
-  return this.__wrap(new ImmutableOrderedMap(val))
+  return this.__wrapImmutable(new ImmutableOrderedMap(val))
 }
 
 OrderedMap.isOrderedMap = function isOrderedMap(obj) {

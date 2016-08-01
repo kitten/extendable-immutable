@@ -1,5 +1,4 @@
 import invariant from 'invariant'
-import { disabledMethods, wrappedMethods } from '../constants/Methods'
 
 const emptySymbol = Symbol('empty')
 
@@ -14,7 +13,8 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
 
   // A method for wrapping an immutable object, with reference equality for empty objects
   proto.__wrapImmutable = function __wrapImmutable(val) {
-    const { constructor, prototype } = this
+    const { constructor } = this
+    const { prototype } = constructor
 
     if (!val.size && !val.__ownerId) {
       if (!constructor[emptySymbol]) {
@@ -29,13 +29,6 @@ export default function createExtendable(base, copy, empty, additionalWrapped = 
     }
 
     return copy(Object.create(prototype), val)
-  }
-
-  // Methods which will throw, because they're not supported in extendable types
-  for (const key of disabledMethods) {
-    proto[key] = function disabled() {
-      throw new Error(`${name}: \`${key}\` is not available for Extendables.`)
-    }
   }
 
   // Methods which will yield a Map and have to be wrapped before returning a result

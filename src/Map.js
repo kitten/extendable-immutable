@@ -24,11 +24,7 @@ function empty(val) {
 }
 
 function Map(val) {
-  if (!this) {
-    return new Map(val)
-  }
-
-  return this.__wrap(new ImmutableMap(val))
+  return this.__wrapImmutable(new ImmutableMap(val))
 }
 
 Map.isMap = function isMap(obj) {

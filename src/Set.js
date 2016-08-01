@@ -26,11 +26,7 @@ function empty(val) {
 }
 
 function Set(val) {
-  if (!this) {
-    return new Set(val)
-  }
-
-  return this.__wrap(new ImmutableSet(val))
+  return this.__wrapImmutable(new ImmutableSet(val))
 }
 
 Set.isSet = function isSet(obj) {

@@ -35,11 +35,7 @@ function empty(val) {
 }
 
 function List(val) {
-  if (!this) {
-    return new List(val)
-  }
-
-  return this.__wrap(new ImmutableList(val))
+  return this.__wrapImmutable(new ImmutableList(val))
 }
 
 List.isList = function isList(obj) {
