@@ -15,7 +15,7 @@ function copy(val, immutable) {
   val.size = immutable.size
   val._list = immutable._list
   val._map = immutable._map
-  val.__ownerid = immutable.__ownerid
+  val.__ownerId = immutable.__ownerId
   val.__hash = immutable.__hash
 
   return val

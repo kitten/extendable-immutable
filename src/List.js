@@ -13,7 +13,7 @@ function copy(val, immutable) {
   val._level = immutable._level
   val._root = immutable._root
   val._tail = immutable._tail
-  val.__ownerid = immutable.__ownerid
+  val.__ownerId = immutable.__ownerId
   val.__hash = immutable.__hash
   val.__altered = immutable.__altered
 

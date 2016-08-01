@@ -6,7 +6,7 @@ import { Map as ImmutableMap } from 'immutable'
 function copy(val, immutable) {
   val.size = immutable.size
   val._root = immutable._root
-  val.__ownerid = immutable.__ownerid
+  val.__ownerId = immutable.__ownerId
   val.__hash = immutable.__hash
   val.__altered = immutable.__altered
 
