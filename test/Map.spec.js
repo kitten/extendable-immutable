@@ -75,4 +75,15 @@ describe('Map', () => {
     expect(obj.size).toBe(1)
     expect(obj.get('test')).toBe('test')
   })
+
+  it('returns the Immutable.Map equivalent on calling toMap', () => {
+    const obj = new Item()
+      .test()
+      .toMap()
+
+    expect(Map.isMap(obj)).toBeFalsy()
+    expect(ImmutableMap.isMap(obj)).toBeTruthy()
+    expect(obj.size).toBe(1)
+    expect(obj.get('test')).toBe('test')
+  })
 })
