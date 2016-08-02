@@ -26,16 +26,7 @@ Installing the latest version via npm takes just a second:
 npm install --save extendable-immutable
 ```
 
-Import the default:
-
-```js
-import Extendable from 'extendable-immutable'
-
-class Collection extends Extendable.OrderedMap {
-// ...
-```
-
-Or import only parts of it:
+Import what you need:
 
 ```js
 import { OrderedMap } from 'extendable-immutable'

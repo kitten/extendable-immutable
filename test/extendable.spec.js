@@ -2,7 +2,7 @@ import expect from 'expect'
 import { Map } from '../src/index'
 import { Map as ImmutableMap } from 'immutable'
 
-describe('Map', () => {
+describe('extendable(Map)', () => {
   class Item extends Map {
     test() {
       return this.set('test', 'test')

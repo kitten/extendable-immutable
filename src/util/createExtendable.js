@@ -2,7 +2,7 @@ import invariant from 'invariant'
 
 const emptySymbol = Symbol('empty')
 
-export default function createExtendable(base, copy, empty, additionalWrapped = []) {
+export default function createExtendable(base, copy, empty) {
   invariant(typeof copy === 'function',
     `${name}: \`copy\` is expected to be a function.`)
   invariant(typeof empty === 'function',
