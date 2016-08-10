@@ -6,7 +6,6 @@ const unwrappedMethods = [
   'getIn',
   'first',
   'last',
-  'getIn',
   'reduce',
   'reduceRight',
   'find',
