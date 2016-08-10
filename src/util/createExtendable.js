@@ -1,6 +1,23 @@
 import invariant from 'invariant'
 
 const emptySymbol = Symbol('empty')
+const unwrappedMethods = [
+  'get',
+  'getIn',
+  'first',
+  'last',
+  'getIn',
+  'reduce',
+  'reduceRight',
+  'find',
+  'findLast',
+  'findEntry',
+  'findLastEntry',
+  'max',
+  'maxBy',
+  'min',
+  'minBy'
+]
 
 export default function createExtendable(base, copy, empty) {
   invariant(typeof copy === 'function',
@@ -31,7 +48,8 @@ export default function createExtendable(base, copy, empty) {
   for (const key in base.prototype) {
     if (
       !key.startsWith('__') &&
-      key !== `to${name}` &&
+      !key.startsWith('to') &&
+      unwrappedMethods.indexOf(key) === -1 &&
       base.prototype.hasOwnProperty(key)
     ) {
       const _originalMethod = base.prototype[key]
