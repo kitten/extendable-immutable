@@ -2,6 +2,7 @@ import invariant from 'invariant'
 
 const emptySymbol = Symbol('empty')
 const unwrappedMethods = [
+  'constructor',
   'get',
   'getIn',
   'first',
@@ -46,10 +47,10 @@ export default function createExtendable(base, copy, empty) {
   // Methods which will yield a Map and have to be wrapped before returning a result
   for (const key in base.prototype) {
     if (
+      base.prototype.hasOwnProperty(key) &&
       !key.startsWith('__') &&
       !key.startsWith('to') &&
-      unwrappedMethods.indexOf(key) === -1 &&
-      base.prototype.hasOwnProperty(key)
+      unwrappedMethods.indexOf(key) === -1
     ) {
       const _originalMethod = base.prototype[key]
 
