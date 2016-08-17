@@ -3,18 +3,14 @@ import { Map } from '../src/index'
 
 describe('extend extendable(Map)', () => {
   class First extends Map {
-    constructor(val) {
-      return super(val)
-    }
-
-    __wrapImmutable(...args) {
-      return super.__wrapImmutable(...args)
-    }
   }
 
-  class Second extends First {}
+  class Second extends First {
+  }
 
   it('constructs a Second extending First extending Map', () => {
+    // Test if empty instances interfere with eachother
+    const _dummy = new First()
     const obj = new Second()
 
     expect(new Second()).toNotBe(new First())
