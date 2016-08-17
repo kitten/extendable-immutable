@@ -2,7 +2,6 @@ import invariant from 'invariant'
 
 const emptySymbol = Symbol('empty')
 const unwrappedMethods = [
-  'constructor',
   'get',
   'getIn',
   'first',
