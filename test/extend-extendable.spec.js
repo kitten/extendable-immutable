@@ -1,11 +1,16 @@
 import expect from 'expect'
-import { Map } from '../src/index'
+import { OrderedMap } from '../src/index'
 
-describe('extend extendable(Map)', () => {
-  class First extends Map {
+describe('extend extendable(OrderedMap)', () => {
+  class First extends OrderedMap {
   }
 
   class Second extends First {
+    setTest() {
+      return this
+        .set("test", true)
+        .sort()
+    }
   }
 
   it('constructs a Second extending First extending Map', () => {
@@ -16,10 +21,21 @@ describe('extend extendable(Map)', () => {
     expect(new Second()).toNotBe(new First())
     expect(obj).toBeA(Second)
     expect(obj).toBeA(First)
-    expect(obj).toBeA(Map)
+    expect(obj).toBeA(OrderedMap)
 
     expect(obj.constructor).toBe(Second)
     expect(obj.constructor.prototype).toBeA(First)
-    expect(obj.constructor.prototype).toBeA(Map)
+    expect(obj.constructor.prototype).toBeA(OrderedMap)
+  })
+
+  it('yields a Second on calling a Second method', () => {
+    const obj = new Second()
+    const res = obj.setTest()
+
+    expect(obj).toBeA(Second)
+    expect(res).toBeA(Second)
+
+    expect(res.constructor).toBe(Second)
+    expect(res.get("test")).toBe(true)
   })
 })
