@@ -10,6 +10,7 @@
   ],
   "description": "Wraps around Immutable.js to turn it inheritable",
   "scripts": {
+    "perf": "node scripts/bench.js",
     "test": "BABEL_ENV=commonjs mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch",
     "test:cov": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
