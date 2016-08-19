@@ -1,6 +1,6 @@
 {
   "name": "extendable-immutable",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
   "files": [
