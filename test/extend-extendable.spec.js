@@ -38,4 +38,14 @@ describe('extend extendable(OrderedMap)', () => {
     expect(res.constructor).toBe(Second)
     expect(res.get("test")).toBe(true)
   })
+
+  it('has a consistent reference for empty instances', () => {
+    const a = new First({ a: 'a' })
+    const b = new Second({ b: 'b' })
+
+    expect(a.clear()).toBe(a.delete('a'))
+    expect(b.clear()).toBe(b.delete('b'))
+    expect(b.clear()).toNotBe(a.delete('a'))
+    expect(a.clear()).toNotBe(b.delete('b'))
+  })
 })

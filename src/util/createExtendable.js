@@ -17,7 +17,8 @@ const unwrappedMethods = [
   'max',
   'maxBy',
   'min',
-  'minBy'
+  'minBy',
+  'clear' // Important! We're manually overriding this method
 ]
 
 export default function createExtendable(base, copy, empty) {
@@ -28,6 +29,11 @@ export default function createExtendable(base, copy, empty) {
 
   const name = base.prototype.constructor.name
   const proto = Object.create(base.prototype)
+
+  // Overrides the original clear method that returns an empty object
+  proto.clear = function clear() {
+    return this.__wrapImmutable({})
+  }
 
   // A method for wrapping an immutable object, with reference equality for empty objects
   proto.__wrapImmutable = function __wrapImmutable(val, forceCreation = false) {
