@@ -68,6 +68,24 @@ describe('extendable(Map)', () => {
     expect(obj.get('a')).toBe('a')
   })
 
+  it('allows the use of withMutations methods', () => {
+    const orig = new Item()
+
+    expect(Map.isMap(orig)).toBeTruthy()
+    expect(orig.size).toBe(0)
+
+    const res = orig.withMutations(map => {
+      map.set('a', 'a')
+
+      expect(map).toBeTruthy()
+      expect(map.size).toBe(1)
+    })
+
+    expect(Map.isMap(res)).toBeTruthy()
+    expect(res.size).toBe(1)
+    expect(res.get('a')).toBe('a')
+  })
+
   it('allows the use of custom, extended methods', () => {
     const obj = new Item().test()
 
