@@ -104,4 +104,16 @@ describe('extendable(Map)', () => {
     expect(obj.size).toBe(1)
     expect(obj.get('test')).toBe('test')
   })
+
+  it('doesn\'t copy custom values that are set on Extendable.Map', () => {
+    const obj = new Item()
+    obj.custom = 'test'
+
+    expect(obj.custom).toBe('test')
+
+    const obj2 = obj.set('a', 'b')
+    expect(obj2.custom).toBeFalsy()
+  })
+
+
 })

@@ -1,18 +1,28 @@
 import createExtendable from './util/createExtendable'
 
 export default function extendable(Base) {
+  const NAME = Base.prototype.constructor.name
   const emptyBase = new Base()
 
-  const NAME = Base.prototype.constructor.name
-  const EMPTY = Object
-    .keys(new Base())
-    .reduce((acc, key) => {
-      acc[key] = emptyBase[key]
-      return acc
-    }, {})
+  let exampleBase
+  if (emptyBase.add) {
+    exampleBase = emptyBase.add("a")
+  } else if (emptyBase.set) {
+    exampleBase = emptyBase.set("a", "b")
+  } else if (emptyBase.push) {
+    exampleBase = emptyBase.push("a")
+  } else {
+    throw new Error(`extendable: \`${NAME}\` is not supported.`)
+  }
+
+  const KEYS = Object.keys(exampleBase)
+  const EMPTY = KEYS.reduce((acc, key) => {
+    acc[key] = emptyBase[key]
+    return acc
+  }, {})
 
   function copy(val, update) {
-    for (const key of Object.keys(update)) {
+    for (const key of KEYS) {
       val[key] = update[key]
     }
 
