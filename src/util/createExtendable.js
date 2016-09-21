@@ -27,7 +27,8 @@ export default function createExtendable(base, copy, empty) {
   invariant(typeof empty === 'function',
     `${name}: \`empty\` is expected to be a function.`)
 
-  const name = base.prototype.constructor.name
+  const constructor = base.prototype.constructor
+  const name = constructor.name
   const proto = Object.create(base.prototype)
 
   // Overrides the original clear method that returns an empty object
@@ -40,12 +41,12 @@ export default function createExtendable(base, copy, empty) {
     const prototype = Object.getPrototypeOf(this)
     const { constructor } = prototype
 
-    if (!forceCreation && !val.size && !val.__ownerID) {
+    if (!val.size && !val.__ownerID && !forceCreation) {
       if (
         !constructor[emptySymbol] ||
         searchParentConstructorEntry(constructor, emptySymbol, constructor[emptySymbol])
       ) {
-        constructor[emptySymbol] = empty(Object.create(prototype))
+        return constructor[emptySymbol] = empty(Object.create(prototype))
       }
 
       return constructor[emptySymbol]
@@ -66,9 +67,13 @@ export default function createExtendable(base, copy, empty) {
       if (typeof _originalMethod === 'function') {
         proto[key] = function wrappedMethod(...args) {
           const res = _originalMethod.apply(this, args)
-          const constructor = Object.getPrototypeOf(res).constructor
+          let _constructor
 
-          if (res && typeof res === 'object' && constructor === base.prototype.constructor) {
+          if (
+            res &&
+            typeof res === 'object' &&
+            (_constructor = Object.getPrototypeOf(res).constructor) === constructor
+          ) {
             return this.__wrapImmutable(res)
           }
 

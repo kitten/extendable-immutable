@@ -1,3 +1,3 @@
 var map = new Extendable.Map()
 
-map.set('a', 'b')
+map.set('a', 'b').clear()
