@@ -6,11 +6,11 @@ export default function extendable(Base) {
 
   let exampleBase
   if (emptyBase.add) {
-    exampleBase = emptyBase.add("a")
+    exampleBase = emptyBase.add('a')
   } else if (emptyBase.set) {
-    exampleBase = emptyBase.set("a", "b")
+    exampleBase = emptyBase.set('a', 'b')
   } else if (emptyBase.push) {
-    exampleBase = emptyBase.push("a")
+    exampleBase = emptyBase.push('a')
   } else {
     throw new Error(`extendable: \`${NAME}\` is not supported.`)
   }
