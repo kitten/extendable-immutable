@@ -1,6 +1,7 @@
 import expect from 'expect'
 import { Map } from '../src/index'
 import { Map as ImmutableMap } from 'immutable'
+import extendable from '../src/extendable'
 
 describe('extendable(Map)', () => {
   class Item extends Map {
@@ -8,6 +9,12 @@ describe('extendable(Map)', () => {
       return this.set('test', 'test')
     }
   }
+
+  it('throws if a non-supported object is passed', () => {
+    expect(() => {
+      extendable(class Test {})
+    }).toThrow(`extendable: \`Test\` is not supported.`);
+  })
 
   it('behaves like a normal Immutable.Map', () => {
     const obj = new Item()
@@ -61,11 +68,17 @@ describe('extendable(Map)', () => {
     expect(Map.isMap(obj)).toBeTruthy()
     expect(obj.size).toBe(1)
 
+    obj.set('b', 'b')
+
+    expect(Map.isMap(obj)).toBeTruthy()
+    expect(obj.size).toBe(2)
+
     obj = obj.asImmutable()
 
     expect(Map.isMap(obj)).toBeTruthy()
-    expect(obj.size).toBe(1)
+    expect(obj.size).toBe(2)
     expect(obj.get('a')).toBe('a')
+    expect(obj.get('b')).toBe('b')
   })
 
   it('allows the use of withMutations methods', () => {
