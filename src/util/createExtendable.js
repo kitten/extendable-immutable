@@ -1,7 +1,5 @@
 import invariant from 'invariant'
-import searchParentConstructorEntry from './searchParentConstructorEntry'
 
-const emptySymbol = 'empty'
 const unwrappedMethods = [
   'constructor',
   'get',
@@ -36,20 +34,27 @@ export default function createExtendable(base, copy, empty) {
     return this.__wrapImmutable({})
   }
 
-  // A method for wrapping an immutable object, with reference equality for empty objects
+  // Create a list of keys and values that hold the empty instances
+  const emptyKeys = []
+  const emptyValues = []
+
+  // A method for wrapping an immutable object, with reference equality for empty instances
   proto.__wrapImmutable = function __wrapImmutable(val, forceCreation = false) {
     const prototype = Object.getPrototypeOf(this)
     const { constructor } = prototype
 
     if (!val.size && !val.__ownerID && !forceCreation) {
-      if (
-        !constructor[emptySymbol] ||
-        searchParentConstructorEntry(constructor, emptySymbol, constructor[emptySymbol])
-      ) {
-        return constructor[emptySymbol] = empty(Object.create(prototype))
+      const emptyIndex = emptyKeys.indexOf(prototype)
+      if (emptyIndex > -1) {
+        return emptyValues[emptyIndex]
       }
 
-      return constructor[emptySymbol]
+      // Create empty instance and store it
+      const emptyInstance = empty(Object.create(prototype))
+      emptyValues[emptyKeys.length] = emptyInstance
+      emptyKeys.push(prototype)
+
+      return emptyInstance
     }
 
     return copy(Object.create(prototype), val)
