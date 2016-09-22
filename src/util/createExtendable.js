@@ -72,12 +72,11 @@ export default function createExtendable(base, copy, empty) {
       if (typeof _originalMethod === 'function') {
         proto[key] = function wrappedMethod(...args) {
           const res = _originalMethod.apply(this, args)
-          let _constructor
 
           if (
             res &&
             typeof res === 'object' &&
-            (_constructor = Object.getPrototypeOf(res).constructor) === constructor
+            Object.getPrototypeOf(res).constructor === constructor
           ) {
             return this.__wrapImmutable(res)
           }
