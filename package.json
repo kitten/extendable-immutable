@@ -50,7 +50,7 @@
     "babel-eslint": "^6.1.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
     "babel-plugin-transform-runtime": "^6.9.0",
-    "babel-preset-philpl": "^0.1.0",
+    "babel-preset-philpl": "^0.3.1",
     "babel-register": "^6.9.0",
     "coveralls": "^2.11.11",
     "eslint": "^3.5.0",
