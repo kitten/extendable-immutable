@@ -1,13 +1,11 @@
 {
   "presets": [
-    "babel-preset-philpl"
+    "babel-preset-philpl/without-extras"
   ],
   "ignore": [
     "/node_modules/"
   ],
-  "plugins": [
-    "transform-runtime"
-  ],
+  "plugins": [],
   env: {
     commonjs: {
       plugins: [
