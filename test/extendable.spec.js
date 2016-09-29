@@ -128,5 +128,13 @@ describe('extendable(Map)', () => {
     expect(obj2.custom).toBeFalsy()
   })
 
+  it('behaves correctly when passing a set id to __ensureOwner', () => {
+    const obj = new Item()
+    const id = {}
+
+    const mutable = obj.__ensureOwner(id)
+    expect(mutable).toNotBe(obj)
+    expect(mutable.__ensureOwner(id)).toBe(mutable)
+  })
 
 })
