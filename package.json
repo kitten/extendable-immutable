@@ -60,7 +60,7 @@
     "glob": "^7.1.0",
     "immutable": "^3.8.1",
     "mocha": "^3.1.0",
-    "nyc": "^8.3.0",
+    "nyc": "^9.0.1",
     "pretty-time": "^0.2.0"
   },
   "peerDependencies": {
