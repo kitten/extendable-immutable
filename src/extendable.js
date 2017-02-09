@@ -22,15 +22,19 @@ export default function extendable(Base) {
   }, {})
 
   function copy(val, update) {
-    for (const key of KEYS) {
-      val[key] = update[key]
-    }
-
-    return val
+    return KEYS.reduce((acc, key) => {
+      acc[key] = update[key]
+      return acc
+    }, val)
   }
 
   function empty(val) {
-    return Object.assign(val, EMPTY)
+    return Object
+      .keys(EMPTY)
+      .reduce((acc, key) => {
+        acc[key] = EMPTY[key]
+        return acc
+      }, val)
   }
 
   function ExtendableWrapper(val) {
