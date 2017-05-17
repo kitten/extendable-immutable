@@ -38,7 +38,12 @@ export default function extendable(Base) {
   }
 
   function ExtendableWrapper(val) {
-    return this.__wrapImmutable(new Base(val))
+    let instance = this
+    if (instance === undefined) {
+      instance = new ExtendableWrapper(val)
+    }
+
+    return instance.__wrapImmutable(new Base(val))
   }
 
   ExtendableWrapper['is' + NAME] = function is(obj) {
